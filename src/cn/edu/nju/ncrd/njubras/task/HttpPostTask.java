@@ -209,22 +209,24 @@ public class HttpPostTask extends AsyncTask<String, Void, Map<String, Object>> {
 				}
 			} else if (replyCode == 501) {	// 获取到在线信息
 				Log.d(TAG, result.get("online").toString());
-				
 				if (result.get("online") instanceof List<?>) {
 					List<Map<String, Object>> onlineInformations = (List<Map<String, Object>>) result.get("online");
 					if (onlineInformations.size() >= 1) {
-						final Map<String, Object> firstOnlineInformation = onlineInformations.get(0);;
+						final Map<String, Object> firstOnlineInformation = onlineInformations.get(0);
+						String areaName = firstOnlineInformation.get("area_name") != null ? firstOnlineInformation.get("area_name").toString() : "";
+						String userIp = firstOnlineInformation.get("user_ip") != null ? firstOnlineInformation.get("acctstarttime").toString() : "";
+						String acctStarttime = firstOnlineInformation.get("acctstarttime") != null ? firstOnlineInformation.get("acctstarttime").toString() : "";
 						if (firstOnlineInformation != null) {
 							new AlertDialog.Builder(currentActivity)
 							.setIcon(android.R.drawable.ic_dialog_alert)
 							.setTitle(result.get("reply_msg").toString())
 							.setMessage(currentActivity.getResources().getString(R.string.logon_at_another_area) + "\n" +
 									currentActivity.getResources().getString(R.string.at) +
-									firstOnlineInformation.get("area_name").toString() + "\n" +
+									areaName + "\n" +
 									currentActivity.getResources().getString(R.string.userip) + 
-									UserInfo.getReadableIp(Long.parseLong(firstOnlineInformation.get("user_ip").toString())) + "\n" +
+									UserInfo.getReadableIp(Long.parseLong(userIp)) + "\n" +
 									currentActivity.getResources().getString(R.string.acctstarttime) +
-									UserInfo.getReadableAcctstarttime(Long.parseLong(firstOnlineInformation.get("acctstarttime").toString())) + "\n" +
+									UserInfo.getReadableAcctstarttime(Long.parseLong(acctStarttime)) + "\n" +
 									currentActivity.getResources().getString(R.string.logoff_and_logon))
 							.setPositiveButton(currentActivity.getResources().getString(R.string.dialog_positive), new DialogInterface.OnClickListener(){
 		
