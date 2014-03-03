@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Bras</string>
+    <string name="user_info">用户信息</string>
+    <string name="action_settings">设置</string>
+    <string name="auto_login">自动登录</string>
+    <string name="login">登录</string>
+    <string name="logout">注销</string>
+    <string name="save_password">保存</string>
+    <string name="username">用户名</string>
+    <string name="password">密码</string>
+    <string name="student_id">学号</string>
+    
+    <string name="user_name">用户名：</string>
+	<string name="userip">IP地址：</string>
+	<string name="useripv6">IPV6地址：</string>
+	<string name="mac">MAC地址：</string>
+	<string name="acctstarttime">上线时间：</string>
+	<string name="fullname">尊姓大名：</string>
+	<string name="service_name">服务级别：</string>
+	<string name="area_name">疑似GPS定位：</string>
+	<string name="payamount">只剩这点钱：</string>
+	
+	<string name="hour">小时 </string>
+	<string name="minute">分钟 </string>
+	<string name="second">秒 </string>
+	
+	<string name="empty_username_or_password">您好像少输入了用户名和密码。</string>
+	<string name="wrong_username_or_password">少年，是不是把用户名和密码忘记了？</string>
+	
+	<string name="logout_dialog_title">下线确认</string>
+	<string name="logout_dialog_message">确定要下线?</string>
+	<string name="dialog_positive">噢</string>
+	<string name="dialog_negative">我不要</string>
+	
+	<string name="progress_dialog_message_logon">龟速登录中，不要急嘛，少年</string>
+	<string name="progress_dialog_message_logoff">下线也要慢慢的来</string>
+	
+	<string name="cannot_establish_connection_to_server">无法连接到服务器，可能被都教授劫持了.</string>
+	
+	<string name="logon_at_another_area">您的账号在其他地点登录了，请保管号自己的账号，不要将账号放在上衣口袋</string>
+	<string name="at">经纬度：</string>
+	<string name="logoff_and_logon">您确定要下线并从本机登录，这样的话寝室的苍老师估计要到明天才能和你见面了?</string>
+</resources>
