@@ -33,7 +33,7 @@ public class WriteJSONToFileTask extends AsyncTask<String, Void, Void> {
 		if (params.length == 3) {
 			String username = params[0];
 			String password = params[1];
-			JSONObject userList = this.mainActivity.getUserList();
+			JSONObject userList = MainActivity.getUserList();
 			try {
 				userList.put(username, password);
 			} catch (JSONException e) {
@@ -51,7 +51,7 @@ public class WriteJSONToFileTask extends AsyncTask<String, Void, Void> {
 					MainActivity.USERS_JSON_FILENAME, Context.MODE_PRIVATE);
 			writer = new PrintWriter(new BufferedWriter(new OutputStreamWriter(
 					fos)));
-			writer.println(this.mainActivity.getUserList().toString());
+			writer.println(MainActivity.getUserList().toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		} finally {

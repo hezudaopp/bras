@@ -40,7 +40,7 @@ public class ReadJSONFromFileTask extends AsyncTask<String, Void, JSONObject> {
 		mainActivity.setUserList(result);
 		if (mainActivity.mUsername != null && !"".equals(mainActivity.mUsername)) {
 			try {
-				mainActivity.mPassword = mainActivity.getUserList().getString(mainActivity.mUsername.toString());
+				mainActivity.mPassword = MainActivity.getUserList().getString(mainActivity.mUsername.toString());
 				mainActivity.updateUI();
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -48,7 +48,7 @@ public class ReadJSONFromFileTask extends AsyncTask<String, Void, JSONObject> {
 		}
 		HttpPostTask mHttpPostTask = new HttpPostTask(mainActivity, MainActivity.INFO_REQUEST_URL);
 		mHttpPostTask.execute(new String[]{"info"});
-		JSONObject userList = mainActivity.getUserList();
+		JSONObject userList = MainActivity.getUserList();
 		int userCount = userList.length();
 		String[] usernameList = new String[userCount];
 		Iterator<?> keys = userList.keys();

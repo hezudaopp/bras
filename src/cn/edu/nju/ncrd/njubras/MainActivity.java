@@ -35,6 +35,7 @@ public class MainActivity extends Activity {
 	public static final String DEFAULT_AUTO_LOGIN = "DefaultAutoLogin";
 	public static final int GET_USERNAME = 0;
 	public static final String USERNAME_KEY = "username";
+	public static final String PASSWORD_KEY = "password";
 	
 	private AutoCompleteTextView mUsernameView;
 	private EditText mPasswordView;
@@ -49,7 +50,7 @@ public class MainActivity extends Activity {
 	
 	public SharedPreferences defaultPref;
 	
-	private JSONObject mUserList;
+	private static JSONObject mUserList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -115,9 +116,9 @@ public class MainActivity extends Activity {
 	
 	private void autoCompletePassword(String username) {
 		this.mUsername = username;
-		if (this.getUserList().has(username.toString())) {
+		if (getUserList().has(username.toString())) {
 			try {
-				this.mPassword = this.getUserList().getString(username.toString());
+				this.mPassword = getUserList().getString(username.toString());
 				this.updateUI();
 			} catch (JSONException e) {
 				e.printStackTrace();
@@ -147,14 +148,14 @@ public class MainActivity extends Activity {
 	    editor.commit();
 	}
 
-	public JSONObject getUserList() {
+	public static JSONObject getUserList() {
 		if (mUserList == null)
 			mUserList = new JSONObject();
 		return mUserList;
 	}
 
 	public void setUserList(JSONObject mUserList) {
-		this.mUserList = mUserList;
+		MainActivity.mUserList = mUserList;
 	}
 
 	public AutoCompleteTextView getUsernameView() {
@@ -189,9 +190,15 @@ public class MainActivity extends Activity {
             Intent data) {
         if (requestCode == GET_USERNAME) {
             if (resultCode == RESULT_OK) {
-                String username = defaultPref.getString(DEFAULT_USERNAME, data.getExtras().getString(USERNAME_KEY));
-                autoCompletePassword(username);
+            	String username = data.getExtras().getString(USERNAME_KEY);
+                String defaultUsername = defaultPref.getString(DEFAULT_USERNAME, username);
+                autoCompletePassword(defaultUsername);
                 updateUI();
+                String password = data.getExtras().getString(PASSWORD_KEY);
+                if (password != null && !"".equals(password)) {	// Logout from another place, relogin automatically
+                	HttpPostTask mHttpPostTask = new HttpPostTask(MainActivity.this, ACTION_REQUEST_URL);
+					mHttpPostTask.execute(new String[]{"login", username, password});
+                }
             }
         }
     }

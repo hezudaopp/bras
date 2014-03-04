@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class UserInfo {
 	private static final long HOUR = 3600000;
 	private static final long MINUTE = 60000;
@@ -19,6 +22,8 @@ public class UserInfo {
 	private String serviceName;
 	private String areaName;
 	private String payamount;
+	
+	public UserInfo(){}
 	
 	public UserInfo(String username, long userip, String useripv6, String mac,
 			long acctstarttime, String fullname, String serviceName,
@@ -141,6 +146,31 @@ public class UserInfo {
 	
 	public static String getReadableAcctstarttime(long acctstarttime) {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.SIMPLIFIED_CHINESE);
-		return dateFormat.format(new Date((acctstarttime+13*3600)*1000));
+		return dateFormat.format(new Date((acctstarttime)*1000));
+	}
+	
+	public void updateUserInfo(JSONObject userInfo) {
+		try {
+			Object mUsername = userInfo.get("username") == null ? "" : userInfo.get("username");
+			this.username = mUsername.toString();
+			Object mUserip = userInfo.get("userip") == null ? "" : userInfo.get("userip");
+			this.userip = Long.parseLong(mUserip.toString());
+			Object mUseripv6 = userInfo.get("useripv6") == null ? "" : userInfo.get("useripv6");
+			this.useripv6 = mUseripv6.toString();
+			Object mMac = userInfo.get("mac") == null ? "" : userInfo.get("mac");
+			this.mac = mMac.toString();
+			Object mAcctstarttime = userInfo.get("acctstarttime") == null ? "" : userInfo.get("acctstarttime");
+			this.acctstarttime = Long.parseLong(mAcctstarttime.toString());
+			Object mFullname = userInfo.get("fullname") == null ? "" : userInfo.get("fullname");
+			this.fullname = mFullname.toString();
+			Object mServicename = userInfo.get("service_name") == null ? "" : userInfo.get("service_name");
+			this.serviceName = mServicename.toString();
+			Object mAreaname = userInfo.get("area_name") == null ? "" : userInfo.get("area_name");
+			this.areaName = mAreaname.toString();
+			Object mPayamount = userInfo.get("payamount") == null ? "" : userInfo.get("payamount");
+			this.payamount = mPayamount.toString();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 }
